@@ -8,17 +8,38 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.*;
+import frc.robot.commands.*;
 
 /**
  * An example subsystem.  You can replace me with your own Subsystem.
  */
-public class ExampleSubsystem extends Subsystem {
-  // Put methods for controlling this subsystem
-  // here. Call these from Commands.
+public class ShieldEject extends Subsystem {
+
+  private Compressor c;
+  private Solenoid out;
+  private Solenoid in;
 
   @Override
   public void initDefaultCommand() {
-    // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
+    c = new Compressor(0);
+    c.setClosedLoopControl(true);
+    out = new Solenoid(1);
+    in = new Solenoid(0);
+  }
+
+  public void Extend() {
+    out.set(true);
+    in.set(false);
+  }
+
+  public void Retract() {
+    out.set(false);
+    in.set(true);
+  }
+
+  public void Vent() {
+    out.set(false);
+    in.set(false);
   }
 }
