@@ -8,8 +8,6 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.*;
-import frc.robot.commands.*;
 import frc.robot.RobotMap;
 
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;

@@ -26,7 +26,7 @@ public class Drive extends Command {
         double newLeft = Math.max(-maxVelocityChange, Math.min(maxVelocityChange, leftChange));
         double newRight = Math.max(-maxVelocityChange, Math.min(maxVelocityChange, rightChange));
         
-        lastPowerSetting = new Pair(lastPowerSetting.left + leftChange, lastPowerSetting.right + rightChange);
+        lastPowerSetting = new Pair(lastPowerSetting.left + newLeft, lastPowerSetting.right + newRight);
         
         return lastPowerSetting;
     }

@@ -7,15 +7,12 @@
 
 package frc.robot;
 
-import frc.robot.commands.*;
 import frc.robot.commands.ShieldEject.*;
 import frc.robot.commands.Lift.*;
 
 import edu.wpi.first.wpilibj.buttons.*;
 
 import edu.wpi.first.wpilibj.Joystick;
-
-import frc.robot.*;
 
 /**
  * This class is the glue that binds the controls on the physical operator
