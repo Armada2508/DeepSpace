@@ -8,10 +8,14 @@
 package frc.robot;
 
 import frc.robot.commands.*;
+import frc.robot.commands.ShieldEject.*;
+import frc.robot.commands.Lift.*;
 
 import edu.wpi.first.wpilibj.buttons.*;
+
 import edu.wpi.first.wpilibj.Joystick;
 
+import frc.robot.*;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -46,19 +50,27 @@ public class OI {
   // until it is finished as determined by it's isFinished method.
   // button.whenReleased(new ExampleCommand());
 
-	public OI() {
+  
+  public OI() {
     y.whenPressed(new Extend());
     a.whenPressed(new Retract());
     b.whenPressed(new Vent());
+    lowCargo.whenPressed(new MoveLift(RobotMap.lowCargo));
+    midCargo.whenPressed(new MoveLift(RobotMap.lowCargo));
+    highCargo.whenPressed(new MoveLift(RobotMap.lowCargo));
+    lowShield.whenPressed(new MoveLift(RobotMap.lowCargo));
+    midShield.whenPressed(new MoveLift(RobotMap.lowCargo));
+    highShield.whenPressed(new MoveLift(RobotMap.lowCargo));
+    resetLift.whenPressed(new MoveLift(0));
   }
         
   // controller on port 0
   public Joystick stick = new Joystick(0);
-  
-  // maps buttons on controller
-  public Button x = new JoystickButton(stick, 1);
-  public Button a = new JoystickButton(stick, 2);
-  public Button b = new JoystickButton(stick, 3);
+
+  //Maps buttons on controller
+  public Button a = new JoystickButton(stick, 1);
+  public Button b = new JoystickButton(stick, 2);
+  public Button x = new JoystickButton(stick, 3);
   public Button y = new JoystickButton(stick, 4);
   public Button lb = new JoystickButton(stick, 5);
   public Button rb = new JoystickButton(stick, 6);
@@ -73,4 +85,13 @@ public class OI {
   double rX = stick.getRawAxis(4);
   public double rY = stick.getRawAxis(5);
   int d_pad = stick.getPOV();
+
+  ComboButton lowCargo = new ComboButton(lb, a);
+  ComboButton midCargo = new ComboButton(lb, b);
+  ComboButton highCargo = new ComboButton(lb, y);
+  ComboButton lowShield = new ComboButton(rb, a);
+  ComboButton midShield = new ComboButton(rb, b);
+  ComboButton highShield = new ComboButton(rb, y);
+  ComboButton resetLift = new ComboButton(lb, rb);
+
 }

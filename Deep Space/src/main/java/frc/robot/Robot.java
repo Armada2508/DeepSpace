@@ -10,9 +10,8 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.subsystems.ShieldEject;
+import frc.robot.subsystems.*;
+import frc.robot.commands.*;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -24,6 +23,8 @@ import frc.robot.subsystems.ShieldEject;
 
 public class Robot extends TimedRobot {
   public static ShieldEject shieldEject = new ShieldEject();
+  public static DriveSystem driveSystem = new DriveSystem();
+  public static Lift lift = new Lift();
   public static OI oi;
   Command autonomousCommand;
 
@@ -97,6 +98,8 @@ public class Robot extends TimedRobot {
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
+    Command driveCMD = new Drive();
+		driveCMD.start();
   }
 
   /**

@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.ShieldEject;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
@@ -13,8 +13,8 @@ import frc.robot.Robot;
 /**
  * An example command.  You can replace me with your own command.
  */
-public class Retract extends Command {
-  public Retract() {
+public class Vent extends Command {
+  public Vent() {
     // Use requires() here to declare subsystem dependencies
     requires(Robot.shieldEject);
   }
@@ -22,7 +22,7 @@ public class Retract extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    Robot.shieldEject.Retract();
+    Robot.shieldEject.Vent();
   }
 
   // Called repeatedly when this Command is scheduled to run

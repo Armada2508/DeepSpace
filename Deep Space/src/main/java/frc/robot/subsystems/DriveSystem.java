@@ -66,15 +66,11 @@ public class DriveSystem extends Subsystem {
 	}
   
   private double processDeadband(double input){
-		double output;
+		double output = 0;
 		
-		if(Math.abs(input)< RobotMap.DeadbandThreshold){
-			output = 0;
-		}
-		
-		else {
-			output = input * RobotMap.driveConfig.MaxRPM;
-		}
+		if(Math.abs(input) >= RobotMap.DeadbandThreshold)
+      output = input * RobotMap.driveConfig.MaxRPM;
+
 		return output;
 	}
 	
