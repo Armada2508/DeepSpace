@@ -24,8 +24,8 @@ public class Lift extends Subsystem {
     TalonSRX liftFollower;
     //This method gets called when the drive system is instatiated in Robot.java
     public Lift() {
-        liftMain = new TalonSRX(4);
-        liftFollower = new TalonSRX(5);
+        liftMain = new TalonSRX(9);
+        liftFollower = new TalonSRX(8);
 
         TalonHelper.initTalonSet(liftMain, liftFollower, RobotMap.liftConfig);
     
@@ -33,8 +33,8 @@ public class Lift extends Subsystem {
         liftMain.configForwardSoftLimitThreshold(RobotMap.LiftLimit, 10);
         liftMain.configMaxIntegralAccumulator(0, 200, 10);
         
-		liftMain.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyClosed, 10);
-		liftMain.setSensorPhase(true);
+        liftMain.setSensorPhase(true);
+        liftFollower.setInverted(false);
     }
 
     @Override

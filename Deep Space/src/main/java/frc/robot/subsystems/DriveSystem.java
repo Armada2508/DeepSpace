@@ -13,6 +13,7 @@ import frc.robot.RobotMap;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
+
 /**
  * An example subsystem.  You can replace me with your own Subsystem.
  */
@@ -29,8 +30,8 @@ public class DriveSystem extends Subsystem {
       rightMain = new TalonSRX(0);
       rightFollower = new TalonSRX(1);
       
-      leftMain = new TalonSRX(7);
-      leftFollower = new TalonSRX(6);
+      leftMain = new TalonSRX(11);
+      leftFollower = new TalonSRX(10);
   
       //This method configures the Talons with settings like PID,
       //Voltag and Current limits, etc.
@@ -38,6 +39,8 @@ public class DriveSystem extends Subsystem {
       //we only have to set the first talon(as they are in the same gearbox)
       TalonHelper.initTalonSet(rightMain, rightFollower, RobotMap.driveConfig);
       TalonHelper.initTalonSet(leftMain, leftFollower, RobotMap.driveConfig);  
+      rightMain.setInverted(true);
+      rightFollower.setInverted(true);
   }
 
   @Override

@@ -37,13 +37,14 @@ public class Drive extends Command {
 		RPower = Robot.oi.stick.getRawAxis(1);
 		LPower = Robot.oi.stick.getRawAxis(1);
 		RPower += Robot.oi.stick.getRawAxis(4);
-		LPower -= Robot.oi.stick.getRawAxis(4);
-		
+        LPower -= Robot.oi.stick.getRawAxis(4);
+        
 		RPower = Math.max(-1, Math.min(1, RPower));
 		LPower = Math.max(-1, Math.min(1, LPower));
 
+
 		Pair Powers = limitAcceleration(20, new Pair(LPower,RPower));
-		
+
 		Robot.driveSystem.drive(-Powers.left,-Powers.right);
     }
     //Returns true when the command is finished

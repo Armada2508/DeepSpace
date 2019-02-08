@@ -9,7 +9,7 @@ public class ComboButton extends Button {
     }
     public boolean get() {
         for (Button button : buttons) {
-            if(button.get())
+            if(!button.get())
                 return false;
         }
         return true;

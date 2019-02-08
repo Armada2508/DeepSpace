@@ -25,6 +25,7 @@ public class Robot extends TimedRobot {
   public static ShieldEject shieldEject = new ShieldEject();
   public static DriveSystem driveSystem = new DriveSystem();
   public static Lift lift = new Lift();
+  public static Intake intake = new Intake();
   public static OI oi;
   Command autonomousCommand;
 
@@ -99,7 +100,8 @@ public class Robot extends TimedRobot {
     // continue until interrupted by another command, remove
     // this line or comment it out.
     Command driveCMD = new Drive();
-		driveCMD.start();
+    driveCMD.start();
+    
   }
 
   /**
@@ -108,6 +110,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
+    System.out.println(lift.getPosition());
   }
 
   /**

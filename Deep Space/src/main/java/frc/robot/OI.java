@@ -6,7 +6,7 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot;
-
+import frc.robot.commands.Intake.*;
 import frc.robot.commands.ShieldEject.*;
 import frc.robot.commands.Lift.*;
 
@@ -49,18 +49,23 @@ public class OI {
 
   
   public OI() {
-    y.whenPressed(new Extend());
-    a.whenPressed(new Retract());
-    b.whenPressed(new Vent());
+    extendPiston.whenPressed(new Extend());
+    retractPiston.whenPressed(new Retract());
+    ventPiston.whenPressed(new Vent());
     lowCargo.whenPressed(new MoveLift(RobotMap.lowCargo));
-    midCargo.whenPressed(new MoveLift(RobotMap.lowCargo));
-    highCargo.whenPressed(new MoveLift(RobotMap.lowCargo));
-    lowShield.whenPressed(new MoveLift(RobotMap.lowCargo));
-    midShield.whenPressed(new MoveLift(RobotMap.lowCargo));
-    highShield.whenPressed(new MoveLift(RobotMap.lowCargo));
+    midCargo.whenPressed(new MoveLift(RobotMap.midCargo));
+    highCargo.whenPressed(new MoveLift(RobotMap.highCargo));
+    lowShield.whenPressed(new MoveLift(RobotMap.lowShield));
+    midShield.whenPressed(new MoveLift(RobotMap.midShield));
+    highShield.whenPressed(new MoveLift(RobotMap.highShield));
     resetLift.whenPressed(new MoveLift(0));
+
+    intake.whileHeld(new Intake());
+    output.whileHeld(new Output());
+
+
   }
-        
+  
   // controller on port 0
   public Joystick stick = new Joystick(0);
 
@@ -91,4 +96,10 @@ public class OI {
   ComboButton highShield = new ComboButton(rb, y);
   ComboButton resetLift = new ComboButton(lb, rb);
 
+  ComboButton intake = new ComboButton(lb, x);
+  ComboButton output = new ComboButton(rb, x);
+
+  ExclusiveButton extendPiston = new ExclusiveButton(a, b, x, y, lb, rb);
+  ExclusiveButton retractPiston = new ExclusiveButton(y, b, x, a, lb, rb);
+  ExclusiveButton ventPiston = new ExclusiveButton(b, a, x, y, lb, rb);
 }
