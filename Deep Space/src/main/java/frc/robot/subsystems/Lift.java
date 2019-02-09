@@ -12,8 +12,6 @@ import frc.robot.RobotMap;
 
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
-import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
 
 /**
  * An example subsystem.  You can replace me with your own Subsystem.
@@ -28,7 +26,7 @@ public class Lift extends Subsystem {
         liftFollower = new TalonSRX(8);
 
         TalonHelper.initTalonSet(liftMain, liftFollower, RobotMap.liftConfig);
-    
+ 
         liftMain.configForwardSoftLimitEnable(true, 10);
         liftMain.configForwardSoftLimitThreshold(RobotMap.LiftLimit, 10);
         liftMain.configMaxIntegralAccumulator(0, 200, 10);

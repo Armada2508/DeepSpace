@@ -26,9 +26,10 @@ public class Robot extends TimedRobot {
   public static DriveSystem driveSystem = new DriveSystem();
   public static Lift lift = new Lift();
   public static Intake intake = new Intake();
+  public static LiftPivot liftPivot = new LiftPivot();
   public static OI oi;
   Command autonomousCommand;
-
+  private static Command driveCMD;
   /**
    * This function is run when the robot is first started up and should be
    * used for any initialization code.
@@ -57,12 +58,14 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void disabledInit() {
+    liftPivot.Retract();
   }
 
   @Override
   public void disabledPeriodic() {
     Scheduler.getInstance().run();
   }
+
 
   /**
    * This autonomous (along with the chooser code above) shows how to select
@@ -77,6 +80,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
+    driveCMD = new Drive();
+    driveCMD.start();    
+    liftPivot.Extend();
     /*
      * String autoSelected = SmartDashboard.getString("Auto Selector",
      * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
@@ -99,9 +105,7 @@ public class Robot extends TimedRobot {
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
-    Command driveCMD = new Drive();
-    driveCMD.start();
-    
+    liftPivot.Extend(); 
   }
 
   /**
@@ -110,7 +114,6 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
-    System.out.println(lift.getPosition());
   }
 
   /**

@@ -13,29 +13,13 @@ import edu.wpi.first.wpilibj.*;
 /**
  * An example subsystem.  You can replace me with your own Subsystem.
  */
-public class ShieldEject extends Subsystem {
+public class CompressorSubsystem extends Subsystem {
 
-  private Solenoid out;
-  private Solenoid in;
+  private Compressor c;
 
   @Override
   public void initDefaultCommand() {
-    out = new Solenoid(1);
-    in = new Solenoid(0);
-  }
-
-  public void Extend() {
-    out.set(true);
-    in.set(false);
-  }
-
-  public void Retract() {
-    out.set(false);
-    in.set(true);
-  }
-
-  public void Vent() {
-    out.set(false);
-    in.set(false);
+    c = new Compressor(0);
+    c.setClosedLoopControl(true);
   }
 }

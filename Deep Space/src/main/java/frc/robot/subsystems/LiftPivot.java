@@ -13,29 +13,34 @@ import edu.wpi.first.wpilibj.*;
 /**
  * An example subsystem.  You can replace me with your own Subsystem.
  */
-public class ShieldEject extends Subsystem {
+public class LiftPivot extends Subsystem {
+    
+    private Solenoid in;
+    private Solenoid out;
 
-  private Solenoid out;
-  private Solenoid in;
+    public LiftPivot() {
+    }
 
-  @Override
-  public void initDefaultCommand() {
-    out = new Solenoid(1);
-    in = new Solenoid(0);
-  }
+    @Override
+    public void initDefaultCommand() {
+        in = new Solenoid(3);
+        out = new Solenoid(4);
+        in.set(false);
+        out.set(true);
+    }
 
-  public void Extend() {
-    out.set(true);
-    in.set(false);
-  }
+    public void Extend() {
+        in.set(false);
+        out.set(true);
+    }
 
-  public void Retract() {
-    out.set(false);
-    in.set(true);
-  }
+    public void Retract() {
+        in.set(true);
+        out.set(false);
+    }
 
-  public void Vent() {
-    out.set(false);
-    in.set(false);
-  }
+    public void Vent() {
+        in.set(false);
+        out.set(false);
+    }
 }
