@@ -6,9 +6,11 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot;
+import frc.robot.commands.Climb;
 import frc.robot.commands.Intake.*;
 import frc.robot.commands.ShieldEject.*;
 import frc.robot.commands.Lift.*;
+import frc.robot.commands.LiftPivot.*;
 
 import edu.wpi.first.wpilibj.buttons.*;
 
@@ -52,6 +54,8 @@ public class OI {
     extendPiston.whenPressed(new Extend());
     retractPiston.whenPressed(new Retract());
     ventPiston.whenPressed(new Vent());
+    back.whenPressed(new RetractPivot());
+    start.whenPressed(new ExtendPivot());
     lowCargo.whenPressed(new MoveLift(RobotMap.lowCargo));
     midCargo.whenPressed(new MoveLift(RobotMap.midCargo));
     highCargo.whenPressed(new MoveLift(RobotMap.highCargo));
@@ -64,6 +68,8 @@ public class OI {
     output.whileHeld(new Output());
 
 
+    l3.whenPressed(new Climb(800));
+    r3.whenPressed(new Climb(-800));
   }
   
   // controller on port 0

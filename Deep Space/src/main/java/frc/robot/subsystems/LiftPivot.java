@@ -23,8 +23,8 @@ public class LiftPivot extends Subsystem {
 
     @Override
     public void initDefaultCommand() {
-        in = new Solenoid(3);
-        out = new Solenoid(4);
+        in = new Solenoid(2);
+        out = new Solenoid(3);
         in.set(false);
         out.set(true);
     }

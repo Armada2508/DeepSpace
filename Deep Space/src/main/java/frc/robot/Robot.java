@@ -12,6 +12,8 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import frc.robot.subsystems.*;
 import frc.robot.commands.*;
+import frc.robot.commands.LiftPivot.ExtendPivot;
+import frc.robot.commands.LiftPivot.RetractPivot;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -27,9 +29,10 @@ public class Robot extends TimedRobot {
   public static Lift lift = new Lift();
   public static Intake intake = new Intake();
   public static LiftPivot liftPivot = new LiftPivot();
+  public static ClimbSystem climbSystem = new ClimbSystem();
   public static OI oi;
   Command autonomousCommand;
-  private static Command driveCMD;
+  private static Command DriveCMD;
   /**
    * This function is run when the robot is first started up and should be
    * used for any initialization code.
@@ -58,7 +61,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void disabledInit() {
-    liftPivot.Retract();
+    Command retractPivot = new RetractPivot();
+    retractPivot.start();
+    retractPivot.close();
   }
 
   @Override
@@ -80,9 +85,11 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    driveCMD = new Drive();
-    driveCMD.start();    
-    liftPivot.Extend();
+    DriveCMD = new Drive();
+    DriveCMD.start();
+    Command extendPivot = new ExtendPivot();
+    extendPivot.start();
+    extendPivot.close();
     /*
      * String autoSelected = SmartDashboard.getString("Auto Selector",
      * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
@@ -105,7 +112,13 @@ public class Robot extends TimedRobot {
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
-    liftPivot.Extend(); 
+    Command extendPivot = new ExtendPivot();
+    extendPivot.start();
+    extendPivot.close();
+    
+    Command climb = new Climb(0); //Reset climber position to 0
+    climb.start();
+    climb.close();
   }
 
   /**
@@ -114,6 +127,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
+    System.out.println(climbSystem.getInchPosition());
   }
 
   /**

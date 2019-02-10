@@ -15,6 +15,15 @@ public final class TalonHelper {
 	private static final int driveSystemTimeoutMs = 0;
 	
 	public static void initTalonSet(TalonSRX mainTalon, TalonSRX followerTalon, TalonConfig talonConfig){
+		initTalon(mainTalon, talonConfig);
+		
+		followerTalon.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 10);
+		followerTalon.setInverted(false);
+		followerTalon.set(ControlMode.Follower, 0f);
+		followerTalon.follow(mainTalon);
+	}
+
+	public static void initTalon(TalonSRX mainTalon, TalonConfig talonConfig){
 		mainTalon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, pidIdx, driveSystemTimeoutMs);
 		mainTalon.configNominalOutputForward(0f, driveSystemTimeoutMs);
 		mainTalon.configNominalOutputReverse(0f, driveSystemTimeoutMs);
@@ -35,10 +44,5 @@ public final class TalonHelper {
 		mainTalon.config_kF(0, talonConfig.F, driveSystemTimeoutMs);
 		mainTalon.configClosedloopRamp(talonConfig.Ramp, driveSystemTimeoutMs);
 		mainTalon.setInverted(false);
-		
-		followerTalon.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 10);
-		followerTalon.setInverted(false);
-		followerTalon.set(ControlMode.Follower, 0f);
-		followerTalon.follow(mainTalon);
 	}
 }
