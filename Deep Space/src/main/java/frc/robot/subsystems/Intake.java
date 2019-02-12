@@ -30,7 +30,7 @@ public class Intake extends Subsystem {
         intake.configForwardSoftLimitEnable(false);
         intake.configNominalOutputForward(0f, 0);
 		intake.configNominalOutputReverse(0f, 0);
-		intake.configPeakOutputForward(intakeConfig.PeakVoltage, 0);
+		intake.configPeakOutputForward(intakeConfig.PeakVoltage, 0);  
 		intake.configPeakOutputReverse(-intakeConfig.PeakVoltage, 0);
 		intake.configPeakCurrentLimit(0, 0); 
 		intake.configPeakCurrentDuration(0, 0);

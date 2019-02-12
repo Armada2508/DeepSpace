@@ -20,9 +20,10 @@ import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
  */
 public class ClimbSystem extends Subsystem {
     double inchPerPulse = 0.000388; 
+    int offset = 0;
 
     TalonSRX climbTalon;
-    //This method gets called when the drive system is instatiated in Robot.java
+    //This method gets called when the climb system is instatiated in Robot.java
     public ClimbSystem() {
         climbTalon = new TalonSRX(6);
 
@@ -47,11 +48,11 @@ public class ClimbSystem extends Subsystem {
     }
 
     public void setPosition(double position) {
-		climbTalon.set(ControlMode.Position, position);
+		climbTalon.set(ControlMode.Position, position + offset);
     }
 
     public void setInchPosition(double position) {
-		climbTalon.set(ControlMode.Position, position);
+		climbTalon.set(ControlMode.Position, position + offset);
     }
 
     public int getPosition() {
@@ -59,11 +60,19 @@ public class ClimbSystem extends Subsystem {
     }
 
     public double getInchPosition() {
-        return getPosition() *inchPerPulse;
+        return getPosition() * inchPerPulse;
     }
     
-    public boolean isRevLimitSwitch(){
+    public boolean isRevLimitSwitch() {
         return climbTalon.getSensorCollection().isRevLimitSwitchClosed();
+    }
+    
+    public void setPower(double power) {
+      climbTalon.set(ControlMode.PercentOutput, power);
+    }
+
+    public void setOffset(int offset) {
+        this.offset = offset;
     }
     
 }

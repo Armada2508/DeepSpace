@@ -11,6 +11,7 @@ public class RetractPivot extends Command {
 
     //Called before command is first run
     protected void initialize() {
+        Robot.liftPivot.Retract();
     }
     //Returns true when the command is finished
     protected boolean isFinished() {

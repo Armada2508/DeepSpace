@@ -11,6 +11,7 @@ public class ExtendPivot extends Command {
 
     //Called before command is first run
     protected void initialize() {
+        Robot.liftPivot.Extend();
     }
     //Returns true when the command is finished
     protected boolean isFinished() {

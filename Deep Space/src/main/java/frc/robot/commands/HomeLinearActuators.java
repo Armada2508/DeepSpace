@@ -9,24 +9,23 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import frc.robot.RobotMap;
 
 /**
  * An example command.  You can replace me with your own command.
  */
-public class Climb extends Command {
-  private double Position;
-  private double CurrentPosition = 0;
-  public Climb(double position) {
-    // Use requires() here to declare subsystem dependencies
+public class HomeLinearActuators extends Command {
+  
+  public HomeLinearActuators() {
     requires(Robot.climbSystem);
-    Position = position;
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {   
-    CurrentPosition = Robot.climbSystem.getPosition() + Position;
-    Robot.climbSystem.setPosition(CurrentPosition);
+    if(!Robot.climbSystem.isRevLimitSwitch()) {
+      Robot.climbSystem.setPower(-RobotMap.homingPower);
+    }
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -37,21 +36,13 @@ public class Climb extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    if(Math.abs(this.CurrentPosition - Robot.climbSystem.getPosition()) <= 50){
-      return true;
-    }
-    if(this.CurrentPosition <= 0 && Robot.climbSystem.isRevLimitSwitch() ){
-      return true;
-    }
-    
-    
-    
-    return false;
+    return Robot.climbSystem.isRevLimitSwitch();
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    Robot.climbSystem.setOffset(Robot.climbSystem.getPosition() + RobotMap.liftMargin);
   }
 
   // Called when another command which requires one or more of the same

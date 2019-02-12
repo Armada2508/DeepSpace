@@ -31,6 +31,9 @@ public class RobotMap {
   public static final double highShield = 1500;
 
   public static final double cargoIntakeSpeed = 1.0;
-  public static final double cargoOutputSpeed = -0.25;
+  public static final double cargoOutputSpeed = -0.5;
+  
+  public static final double homingPower = 0.1;
+  public static final int liftMargin = 200;
   
 }
