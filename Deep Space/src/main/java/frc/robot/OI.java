@@ -51,9 +51,7 @@ public class OI {
 
   
   public OI() {
-    extendPiston.whenPressed(new Extend());
-    retractPiston.whenPressed(new Retract());
-    ventPiston.whenPressed(new Vent());
+    shieldPiston.whenPressed(new Eject());
     back.whenPressed(new RetractPivot());
     start.whenPressed(new ExtendPivot());
     lowCargo.whenPressed(new MoveLift(RobotMap.lowCargo));
@@ -105,7 +103,5 @@ public class OI {
   ComboButton intake = new ComboButton(lb, x);
   ComboButton output = new ComboButton(rb, x);
 
-  ExclusiveButton extendPiston = new ExclusiveButton(a, b, x, y, lb, rb);
-  ExclusiveButton retractPiston = new ExclusiveButton(y, b, x, a, lb, rb);
-  ExclusiveButton ventPiston = new ExclusiveButton(b, a, x, y, lb, rb);
+  ExclusiveButton shieldPiston = new ExclusiveButton(a, b, x, y, lb, rb);
 }

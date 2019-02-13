@@ -35,5 +35,7 @@ public class RobotMap {
   
   public static final double homingPower = 0.1;
   public static final int liftMargin = 200;
+
+  public static final double shieldEjectWait = 0.25;
   
 }

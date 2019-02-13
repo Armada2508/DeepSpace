@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import frc.robot.subsystems.*;
 import frc.robot.commands.*;
 import frc.robot.commands.LiftPivot.ExtendPivot;
-import frc.robot.commands.LiftPivot.RetractPivot;
+import frc.robot.commands.ShieldEject.Eject;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -33,6 +33,7 @@ public class Robot extends TimedRobot {
   public static OI oi;
   Command autonomousCommand;
   private static Command DriveCMD;
+  private static Command eject;
   /**
    * This function is run when the robot is first started up and should be
    * used for any initialization code.
@@ -122,8 +123,8 @@ public class Robot extends TimedRobot {
     Command climb = new Climb(0); //Reset climber position to 0
     climb.start();
     climb.close();
-  }
 
+  }
   /**
    * This function is called periodically during operator control.
    */
