@@ -53,7 +53,7 @@ public class Intake extends Subsystem {
     }
 
     public void OutputCargo() {
-		intake.set(ControlMode.PercentOutput, RobotMap.cargoOutputSpeed);
+		intake.set(ControlMode.PercentOutput, -RobotMap.cargoOutputSpeed);
     }
 
     public void StopCargo() {

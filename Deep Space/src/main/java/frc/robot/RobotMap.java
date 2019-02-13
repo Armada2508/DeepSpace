@@ -21,8 +21,10 @@ public class RobotMap {
   public static final TalonConfig liftConfig = new TalonConfig(1.0 * 1023 / 4096, 0.01 * 1023 / 4096, 0.01 * 1023 / 4096, 0, 0.1, 4000, 12, 40);
   public static final TalonConfig climbConfig = new TalonConfig(1, .2 , 0, 0, 0.1, 4000, 12, 30);
   public static final double maxAcceleration = 4;
+  //Software Height Limit for Lift
   public static final int LiftLimit = 2000;
 
+  //Cargo/Shield Positions
   public static final double lowCargo = 1500;
   public static final double lowShield = 1500;
   public static final double midCargo = 1500;
@@ -30,12 +32,13 @@ public class RobotMap {
   public static final double highCargo = 1500;
   public static final double highShield = 1500;
 
+  //Input and Output Speeds for intake(-1.0 min, 1.0 max)
   public static final double cargoIntakeSpeed = 1.0;
-  public static final double cargoOutputSpeed = -0.5;
+  public static final double cargoOutputSpeed = 0.5;
   
   public static final double homingPower = 0.1;
   public static final int liftMargin = 200;
 
-  public static final double shieldEjectWait = 0.25;
+  public static final double shieldEjectWait = 0.15;
   
 }

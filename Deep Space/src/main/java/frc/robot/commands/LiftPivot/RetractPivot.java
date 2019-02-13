@@ -6,7 +6,7 @@ import frc.robot.*;
 public class RetractPivot extends Command {
 
     public RetractPivot() {
-        requires(Robot.driveSystem);
+        requires(Robot.liftPivot);
     }
 
     //Called before command is first run

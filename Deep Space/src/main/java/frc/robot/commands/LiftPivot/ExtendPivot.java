@@ -6,7 +6,7 @@ import frc.robot.*;
 public class ExtendPivot extends Command {
 
     public ExtendPivot() {
-        requires(Robot.driveSystem);
+        requires(Robot.liftPivot);
     }
 
     //Called before command is first run

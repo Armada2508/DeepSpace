@@ -32,7 +32,6 @@ public class Robot extends TimedRobot {
   public static ClimbSystem climbSystem = new ClimbSystem();
   public static OI oi;
   Command autonomousCommand;
-  private static Command DriveCMD;
   private static Command eject;
   /**
    * This function is run when the robot is first started up and should be
@@ -83,9 +82,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-
-    DriveCMD = new Drive();
-    DriveCMD.start();
     Command extendPivot = new ExtendPivot();
     extendPivot.start();
     extendPivot.close();
@@ -110,7 +106,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
-    DriveCMD = new Drive();
+    Command DriveCMD = new Drive();
     DriveCMD.start();
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
