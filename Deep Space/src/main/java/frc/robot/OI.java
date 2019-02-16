@@ -65,10 +65,7 @@ public class OI {
     intake.whileHeld(new Intake());
     output.whileHeld(new Output());
 
-
-    l3.whenPressed(new ClimbTest(1.5));
-
-
+    
     linearActuatorForward.whenPressed(new Climb(0.5));
     
   }

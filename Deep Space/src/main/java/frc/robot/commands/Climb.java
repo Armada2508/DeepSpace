@@ -20,7 +20,7 @@ public class Climb extends Command {
   public Climb(double pos) {
     // Use requires() here to declare subsystem dependencies
     requires(Robot.climbSystem);
-    position = Robot.climbSystem.getInchPosition(0) + pos;
+    position = pos;
   }
 
   // Called just before this Command runs the first time
@@ -32,7 +32,6 @@ public class Climb extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    System.out.println(Robot.oi.stick.getRawAxis(2));
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -43,7 +42,7 @@ public class Climb extends Command {
       if(!(Math.abs(this.position - Robot.climbSystem.getInchPosition(i)) <= 0.05)) {
         isDone = false;
       }
-      if(Robot.climbSystem.isRevLimitSwitch(i)) {
+      if(Robot.climbSystem.isRevLimitSwitch(i) && Robot.climbSystem.getPosition(i) < 0) {
         isDone = true;
         break;
       }

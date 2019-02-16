@@ -29,15 +29,15 @@ public class ClimbSystem extends Subsystem {
 
     //This method gets called when the climb system is instatiated in Robot.java
     public ClimbSystem() {
-        offset = new ArrayList<Double>();
+        //offset = new ArrayList<Double>();
         climbTalons = new ArrayList<TalonSRX>();
 
         climbTalons.add(new TalonSRX(5));
         //climbTalons.add(new TalonSRX(6));
         
-        for (int i = 0; i < climbTalons.size(); i++) {
+        /*for (int i = 0; i < climbTalons.size(); i++) {
             offset.add(0.0);  
-        }
+        }*/
         
         for (TalonSRX climbTalon : climbTalons) {
             initClimbTalon(climbTalon);
@@ -65,14 +65,14 @@ public class ClimbSystem extends Subsystem {
 
     public void setPosition(double pos) {
         for (int i = 0; i < climbTalons.size(); i++) {   
-            double tickOffset = offset.get(i) / ticksPerInch;
-            climbTalons.get(i).set(ControlMode.Position, pos + tickOffset);
+            /*double tickOffset = offset.get(i) / ticksPerInch*/;
+            climbTalons.get(i).set(ControlMode.Position, pos /*+ tickOffset*/);
         }
     }
 
     public void setInchPosition(double pos) {
         for (int i = 0; i < climbTalons.size(); i++) {
-            climbTalons.get(i).set(ControlMode.Position, ( pos + offset.get(i) ) / ticksPerInch);
+            climbTalons.get(i).set(ControlMode.Position, ( pos /*+ offset.get(i)*/ ) / ticksPerInch);
         }
 	}
     
@@ -81,8 +81,8 @@ public class ClimbSystem extends Subsystem {
     }
 
     public int getPosition(int talonNumber) {
-        double tickOffset = offset.get(talonNumber) / ticksPerInch;
-        return this.getRawPosition(0) + (int)(tickOffset);
+        //double tickOffset = offset.get(talonNumber) / ticksPerInch;
+        return this.getRawPosition(0) /*+ (int)(tickOffset)*/;
     }
 
     public double getInchPosition(int talonNumber) {
@@ -100,14 +100,14 @@ public class ClimbSystem extends Subsystem {
     public void setPower(double power, int talonNumber) {
       climbTalons.get(talonNumber).set(ControlMode.PercentOutput, power);
     }
-
+/*
     public void setOffset(ArrayList<Double> o) {
         for (int i = 0; i < o.size(); i++) {
             offset.add(i, o.get(i));
             offset.remove(i + 1);
         }
     }
-
+*/
     public ArrayList<TalonSRX> returnTalons() {
         return climbTalons;
     }
