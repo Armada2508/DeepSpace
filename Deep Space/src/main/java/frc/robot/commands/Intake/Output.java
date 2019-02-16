@@ -14,15 +14,17 @@ import frc.robot.Robot;
  * An example command.  You can replace me with your own command.
  */
 public class Output extends Command {
-  public Output() {
+  private boolean fast;
+  public Output(boolean fast) {
     // Use requires() here to declare subsystem dependencies
     requires(Robot.intake);
+    this.fast = fast;
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    Robot.intake.OutputCargo();
+    Robot.intake.OutputCargo(this.fast);
   }
 
   // Called repeatedly when this Command is scheduled to run

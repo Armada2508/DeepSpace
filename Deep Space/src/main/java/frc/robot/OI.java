@@ -49,7 +49,7 @@ public class OI {
   // until it is finished as determined by it's isFinished method.
   // button.whenReleased(new ExampleCommand());
 
-  
+
   public OI() {
     shieldPiston.whenPressed(new Eject());
     back.whenPressed(new RetractPivot());
@@ -62,14 +62,16 @@ public class OI {
     highShield.whenPressed(new MoveLift(RobotMap.highShield));
     resetLift.whenPressed(new MoveLift(0));
 
-    intake.whileHeld(new Intake());
-    output.whileHeld(new Output());
+    intakeFast.whileHeld(new Intake(true));
+    outputFast.whileHeld(new Output(true));
+    intakeSlow.whileHeld(new Intake(false));
+    outputSlow.whileHeld(new Output(false));
 
-    
-    linearActuatorForward.whenPressed(new Climb(0.5));
-    
+
+    //linearActuatorForward.whenPressed(new Climb(0.5));
+
   }
-  
+
   // controller on port 0
   public Joystick stick = new Joystick(0);
 
@@ -92,19 +94,13 @@ public class OI {
   public double rY = stick.getRawAxis(5);
   int d_pad = stick.getPOV();
 
-  ComboButton lowCargo = new ComboButton(lb, a);
-  ComboButton midCargo = new ComboButton(lb, b);
-  ComboButton highCargo = new ComboButton(lb, y);
-  ComboButton lowShield = new ComboButton(rb, a);
-  ComboButton midShield = new ComboButton(rb, b);
-  ComboButton highShield = new ComboButton(rb, y);
-  ComboButton resetLift = new ComboButton(lb, rb);
-
-  ComboButton intake = new ComboButton(lb, x);
-  ComboButton output = new ComboButton(rb, x);
+  ComboButton intakeFast = new ComboButton(lb, x);
+  ComboButton outputFast = new ComboButton(rb, x);
+  ComboButton intakeSlow = new ComboButton(lb, y);
+  ComboButton outputSlow = new ComboButton(rb, y);
 
   ExclusiveButton shieldPiston = new ExclusiveButton(a, b, x, y, lb, rb);
 
-  TriggerButton linearActuatorForward = new TriggerButton(stick, 2, 0.1);
-  TriggerButton linearActuatorBackwards = new TriggerButton(stick, 3, 0.1);
+//  TriggerButton linearActuatorForward = new TriggerButton(stick, 2, 0.1);
+//  TriggerButton linearActuatorBackwards = new TriggerButton(stick, 3, 0.1);
 }

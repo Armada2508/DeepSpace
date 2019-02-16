@@ -24,23 +24,23 @@ public class Intake extends Subsystem {
     TalonSRX intake;
     //This method gets called when the drive system is instatiated in Robot.java
     public Intake() {
-        intake = new TalonSRX(2);
-        
-        intake.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 10);
-        intake.configForwardSoftLimitEnable(false);
-        intake.configNominalOutputForward(0f, 0);
-		intake.configNominalOutputReverse(0f, 0);
-		intake.configPeakOutputForward(intakeConfig.PeakVoltage, 0);  
-		intake.configPeakOutputReverse(-intakeConfig.PeakVoltage, 0);
-		intake.configPeakCurrentLimit(0, 0); 
-		intake.configPeakCurrentDuration(0, 0);
-		intake.configContinuousCurrentLimit(intakeConfig.PeakCurrent, 0);
-        intake.enableCurrentLimit(true); 
-		intake.config_kP(0, intakeConfig.P, 0);
-		intake.config_kI(0, intakeConfig.I, 0); 
-		intake.config_kD(0, intakeConfig.D, 0);
-		intake.config_kF(0, intakeConfig.F, 0);
-		intake.configClosedloopRamp(intakeConfig.Ramp, 0);
+      intake = new TalonSRX(2);
+
+      intake.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 10);
+      intake.configForwardSoftLimitEnable(false);
+      intake.configNominalOutputForward(0f, 0);
+  		intake.configNominalOutputReverse(0f, 0);
+  		intake.configPeakOutputForward(intakeConfig.PeakVoltage, 0);
+  		intake.configPeakOutputReverse(-intakeConfig.PeakVoltage, 0);
+  		intake.configPeakCurrentLimit(0, 0);
+  		intake.configPeakCurrentDuration(0, 0);
+  		intake.configContinuousCurrentLimit(intakeConfig.PeakCurrent, 0);
+      intake.enableCurrentLimit(true);
+  		intake.config_kP(0, intakeConfig.P, 0);
+  		intake.config_kI(0, intakeConfig.I, 0);
+  		intake.config_kD(0, intakeConfig.D, 0);
+  		intake.config_kF(0, intakeConfig.F, 0);
+  		intake.configClosedloopRamp(intakeConfig.Ramp, 0);
     }
 
     @Override
@@ -48,12 +48,18 @@ public class Intake extends Subsystem {
         intake.set(ControlMode.PercentOutput, 0);
     }
 
-    public void IntakeCargo() {
-		intake.set(ControlMode.PercentOutput, RobotMap.cargoIntakeSpeed);
+    public void IntakeCargo(boolean fast) {
+      if(fast)
+		    intake.set(ControlMode.PercentOutput, RobotMap.fastCargoIntakeSpeed);
+      else
+        intake.set(ControlMode.PercentOutput, RobotMap.slowCargoIntakeSpeed);
     }
 
-    public void OutputCargo() {
-		intake.set(ControlMode.PercentOutput, -RobotMap.cargoOutputSpeed);
+    public void OutputCargo(boolean fast) {
+      if(fast)
+		    intake.set(ControlMode.PercentOutput, -RobotMap.fastCargoOutputSpeed);
+      else
+        intake.set(ControlMode.PercentOutput, -RobotMap.slowCargoOutputSpeed);  
     }
 
     public void StopCargo() {
