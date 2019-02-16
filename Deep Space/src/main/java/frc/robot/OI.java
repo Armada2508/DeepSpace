@@ -54,13 +54,6 @@ public class OI {
     shieldPiston.whenPressed(new Eject());
     back.whenPressed(new RetractPivot());
     start.whenPressed(new ExtendPivot());
-    lowCargo.whenPressed(new MoveLift(RobotMap.lowCargo));
-    midCargo.whenPressed(new MoveLift(RobotMap.midCargo));
-    highCargo.whenPressed(new MoveLift(RobotMap.highCargo));
-    lowShield.whenPressed(new MoveLift(RobotMap.lowShield));
-    midShield.whenPressed(new MoveLift(RobotMap.midShield));
-    highShield.whenPressed(new MoveLift(RobotMap.highShield));
-    resetLift.whenPressed(new MoveLift(0));
 
     intakeFast.whileHeld(new Intake(true));
     outputFast.whileHeld(new Output(true));
