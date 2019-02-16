@@ -36,8 +36,10 @@ public class RobotMap {
   public static final double cargoIntakeSpeed = 1.0;
   public static final double cargoOutputSpeed = 0.5;
   
-  public static final double homingPower = 0.1;
-  public static final int liftMargin = 200;
+  //Power used for homing
+  public static final double homingPower = 0.2;
+  //Lift Margin(Inches)
+  public static final double liftMargin = 0.0;
 
   public static final double shieldEjectWait = 0.15;
   

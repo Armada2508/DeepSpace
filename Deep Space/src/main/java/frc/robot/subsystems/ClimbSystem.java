@@ -7,6 +7,7 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 import frc.robot.*;
@@ -15,32 +16,32 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
 import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
+import java.util.*;
 
 /**
  * An example subsystem.  You can replace me with your own Subsystem.
  */
 public class ClimbSystem extends Subsystem {
-    double inchPerPulse = 0.000388; 
-    int offset = 0;
+    double ticksPerInch = 0.000388; 
 
-    TalonSRX climbTalon;
+    ArrayList<TalonSRX> climbTalons;
+    ArrayList<Double> offset;
+
     //This method gets called when the climb system is instatiated in Robot.java
     public ClimbSystem() {
-        climbTalon = new TalonSRX(6);
+        offset = new ArrayList<Double>();
+        climbTalons = new ArrayList<TalonSRX>();
 
-        TalonHelper.initTalon(climbTalon,RobotMap.climbConfig);
- 
-        climbTalon.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.Disabled, 10);
-        climbTalon.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyClosed, 10);
-        climbTalon.configClearPositionOnLimitR(false, 10);
-        climbTalon.configForwardSoftLimitEnable(true, 10);
-        climbTalon.configForwardSoftLimitThreshold((int)(20.0/inchPerPulse), 10);
-        climbTalon.configReverseSoftLimitEnable(false, 10);
-        climbTalon.configReverseSoftLimitThreshold(-1000, 10);
-        climbTalon.configMaxIntegralAccumulator(0, 200, 10);
-        climbTalon.setInverted(true);
+        climbTalons.add(new TalonSRX(5));
+        //climbTalons.add(new TalonSRX(6));
         
-        climbTalon.setSensorPhase(false);
+        for (int i = 0; i < climbTalons.size(); i++) {
+            offset.add(0.0);  
+        }
+        
+        for (TalonSRX climbTalon : climbTalons) {
+            initClimbTalon(climbTalon);
+        }
     }
 
     @Override
@@ -48,32 +49,66 @@ public class ClimbSystem extends Subsystem {
         
     }
 
-    public void setPosition(double position) {
-		climbTalon.set(ControlMode.Position, position + offset);
+    public void initClimbTalon(TalonSRX talon) {
+        talon.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.Disabled, 10);
+        talon.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.Disabled, 10);
+        TalonHelper.initTalon(talon, RobotMap.climbConfig);
+        talon.configClearPositionOnLimitR(false, 10);
+        talon.configForwardSoftLimitEnable(true, 10);
+        talon.configForwardSoftLimitThreshold((int)(20.0/ticksPerInch), 10);
+        talon.configReverseSoftLimitEnable(false, 10);
+        talon.configReverseSoftLimitThreshold(-1000, 10);
+        talon.configMaxIntegralAccumulator(0, 200, 10);
+        talon.setInverted(true);
+        talon.setSensorPhase(false);
     }
 
-    public void setInchPosition(double position) {
-		climbTalon.set(ControlMode.Position, position + offset);
+    public void setPosition(double pos) {
+        for (int i = 0; i < climbTalons.size(); i++) {   
+            double tickOffset = offset.get(i) / ticksPerInch;
+            climbTalons.get(i).set(ControlMode.Position, pos + tickOffset);
+        }
     }
 
-    public int getPosition() {
-        return climbTalon.getSelectedSensorPosition(0);
+    public void setInchPosition(double pos) {
+        for (int i = 0; i < climbTalons.size(); i++) {
+            climbTalons.get(i).set(ControlMode.Position, ( pos + offset.get(i) ) / ticksPerInch);
+        }
+	}
+    
+    public int getRawPosition(int talonNumber) {
+        return climbTalons.get(0).getSelectedSensorPosition(0);
     }
 
-    public double getInchPosition() {
-        return getPosition() * inchPerPulse;
+    public int getPosition(int talonNumber) {
+        double tickOffset = offset.get(talonNumber) / ticksPerInch;
+        return this.getRawPosition(0) + (int)(tickOffset);
+    }
+
+    public double getInchPosition(int talonNumber) {
+        return this.getPosition(talonNumber) * ticksPerInch;
+    }
+
+    public double getRawInchPosition(int talonNumber) {
+        return this.getRawPosition(talonNumber) * ticksPerInch;
     }
     
-    public boolean isRevLimitSwitch() {
-        return climbTalon.getSensorCollection().isRevLimitSwitchClosed();
+    public boolean isRevLimitSwitch(int talonNumber) {
+        return climbTalons.get(talonNumber).getSensorCollection().isRevLimitSwitchClosed();
     }
     
-    public void setPower(double power) {
-      climbTalon.set(ControlMode.PercentOutput, power);
+    public void setPower(double power, int talonNumber) {
+      climbTalons.get(talonNumber).set(ControlMode.PercentOutput, power);
     }
 
-    public void setOffset(int offset) {
-        this.offset = offset;
+    public void setOffset(ArrayList<Double> o) {
+        for (int i = 0; i < o.size(); i++) {
+            offset.add(i, o.get(i));
+            offset.remove(i + 1);
+        }
     }
-    
+
+    public ArrayList<TalonSRX> returnTalons() {
+        return climbTalons;
+    }
 }

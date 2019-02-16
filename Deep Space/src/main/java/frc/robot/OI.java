@@ -11,7 +11,7 @@ import frc.robot.commands.Intake.*;
 import frc.robot.commands.ShieldEject.*;
 import frc.robot.commands.Lift.*;
 import frc.robot.commands.LiftPivot.*;
-
+import frc.robot.commands.*;
 import edu.wpi.first.wpilibj.buttons.*;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -66,8 +66,11 @@ public class OI {
     output.whileHeld(new Output());
 
 
-    l3.whenPressed(new Climb(800));
-    r3.whenPressed(new Climb(-800));
+    l3.whenPressed(new ClimbTest(1.5));
+
+
+    linearActuatorForward.whenPressed(new Climb(0.5));
+    
   }
   
   // controller on port 0
@@ -104,4 +107,7 @@ public class OI {
   ComboButton output = new ComboButton(rb, x);
 
   ExclusiveButton shieldPiston = new ExclusiveButton(a, b, x, y, lb, rb);
+
+  TriggerButton linearActuatorForward = new TriggerButton(stick, 2, 0.1);
+  TriggerButton linearActuatorBackwards = new TriggerButton(stick, 3, 0.1);
 }

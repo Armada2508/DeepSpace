@@ -14,13 +14,13 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 /**
  * An example command.  You can replace me with your own command.
  */
-public class Climb extends Command {
+public class ClimbTest extends Command {
   private boolean isDone;
   private double position;
-  public Climb(double pos) {
+  public ClimbTest(double position) {
     // Use requires() here to declare subsystem dependencies
     requires(Robot.climbSystem);
-    position = Robot.climbSystem.getInchPosition(0) + pos;
+    this.position = position;
   }
 
   // Called just before this Command runs the first time
@@ -32,23 +32,15 @@ public class Climb extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    System.out.println(Robot.oi.stick.getRawAxis(2));
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    isDone = true;
-    for (int i = 0; i < Robot.climbSystem.returnTalons().size(); i++) {
-      if(!(Math.abs(this.position - Robot.climbSystem.getInchPosition(i)) <= 0.05)) {
-        isDone = false;
+      if(Math.abs(Robot.climbSystem.getPosition(0) - position) <= 100) {
+          return true;
       }
-      if(Robot.climbSystem.isRevLimitSwitch(i)) {
-        isDone = true;
-        break;
-      }
-    }
-    return isDone;
+      return false;
   }
 
   // Called once after isFinished returns true

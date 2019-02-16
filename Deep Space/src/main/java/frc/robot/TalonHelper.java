@@ -14,16 +14,17 @@ public final class TalonHelper {
 	private static final int pidIdx = 0;
 	private static final int driveSystemTimeoutMs = 0;
 	
-	public static void initTalonSet(TalonSRX mainTalon, TalonSRX followerTalon, TalonConfig talonConfig){
+	public static void initTalonSet(TalonSRX mainTalon, TalonSRX followerTalon, TalonConfig talonConfig) {
 		initTalon(mainTalon, talonConfig);
+		initTalon(followerTalon, talonConfig);
 		
-		//Clears Limit Switch
-		followerTalon.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 10);
-		//Resets Motor Direction
+		//Clear Limit Switch
+		followerTalon.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.Disabled, 10);
+		//Reset Motor Direction
 		followerTalon.setInverted(false);
 		//Set Follower Talon's Speed to Zero
 		followerTalon.set(ControlMode.Follower, 0f);
-		//Makes Follower Talon follow Main Talon
+		//Make Follower Talon follow Main Talon
 		followerTalon.follow(mainTalon);
 	}
 
@@ -51,8 +52,8 @@ public final class TalonHelper {
 		mainTalon.setSensorPhase(true);
 		//Set Software Limit
 		mainTalon.configForwardSoftLimitEnable(false, 0);
-		//Config/Add Limit Switch
-		mainTalon.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 10);
+		//Clear Limit Switch
+		mainTalon.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.Disabled, 10);
 		//Set PIDF Values
 		mainTalon.config_kP(0, talonConfig.P, driveSystemTimeoutMs);
 		mainTalon.config_kI(0, talonConfig.I, driveSystemTimeoutMs); 

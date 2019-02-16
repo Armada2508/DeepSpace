@@ -115,11 +115,12 @@ public class Robot extends TimedRobot {
     Command extendPivot = new ExtendPivot();
     extendPivot.start();
     extendPivot.close();
-    
-    Command climb = new Climb(0); //Reset climber position to 0
-    climb.start();
-    climb.close();
+  
+    Command homeActuators = new HomeLinearActuators();
+    homeActuators.start();
+    homeActuators.close();
 
+    
   }
   /**
    * This function is called periodically during operator control.
