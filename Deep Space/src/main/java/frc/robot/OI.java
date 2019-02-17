@@ -87,7 +87,7 @@ public class OI {
   int d_pad = stick.getPOV();
 
   ExclusiveButton intakeFast = new ExclusiveButton(y, a, b, x, lb, rb);
-  ExclusiveButton intakeSlow = new ExclusiveButton(x, a, b, x, lb, rb);
+  ExclusiveButton intakeSlow = new ExclusiveButton(x, a, b, y, lb, rb);
   ExclusiveButton midCargo = new ExclusiveButton(a, b, x, y, lb, rb);
   ExclusiveButton lowCargo = new ExclusiveButton(b, a, x, y, lb, rb);
 

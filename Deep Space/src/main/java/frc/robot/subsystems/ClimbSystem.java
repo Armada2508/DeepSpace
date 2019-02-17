@@ -33,7 +33,8 @@ public class ClimbSystem extends Subsystem {
         climbTalons = new ArrayList<TalonSRX>();
 
         climbTalons.add(new TalonSRX(5));
-        //climbTalons.add(new TalonSRX(6));
+        climbTalons.add(new TalonSRX(6));
+        climbTalons.add(new TalonSRX(7));
         
         /*for (int i = 0; i < climbTalons.size(); i++) {
             offset.add(0.0);  
