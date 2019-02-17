@@ -24,14 +24,6 @@ public class RobotMap {
   //Software Height Limit for Lift
   public static final int LiftLimit = 2000;
 
-  //Cargo/Shield Positions
-  public static final double lowCargo = 1500;
-  public static final double lowShield = 1500;
-  public static final double midCargo = 1500;
-  public static final double midShield = 1500;
-  public static final double highCargo = 1500;
-  public static final double highShield = 1500;
-
   //Input and Output Speeds for intake(-1.0 min, 1.0 max)
   public static final double fastCargoIntakeSpeed = 1.0;
   public static final double slowCargoIntakeSpeed = 0.5;
@@ -45,4 +37,6 @@ public class RobotMap {
 
   public static final double shieldEjectWait = 0.15;
 
+  public static final double lowPlatformHeight = 6.0;
+  public static final double highPlatformHeight = 19.0;
 }

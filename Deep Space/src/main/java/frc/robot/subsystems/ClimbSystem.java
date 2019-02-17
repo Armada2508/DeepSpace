@@ -70,19 +70,27 @@ public class ClimbSystem extends Subsystem {
         }
     }
 
+    public void setPosition(double pos, int talon) {
+        climbTalons.get(talon).set(ControlMode.Position, pos);
+    }
+
     public void setInchPosition(double pos) {
         for (int i = 0; i < climbTalons.size(); i++) {
             climbTalons.get(i).set(ControlMode.Position, ( pos /*+ offset.get(i)*/ ) / ticksPerInch);
         }
 	}
+
+    public void setInchPosition(double pos, int talon) {
+        climbTalons.get(talon).set(ControlMode.Position, ( pos /*+ offset.get(i)*/ ) / ticksPerInch);
+    }
     
     public int getRawPosition(int talonNumber) {
-        return climbTalons.get(0).getSelectedSensorPosition(0);
+        return climbTalons.get(talonNumber).getSelectedSensorPosition(0);
     }
 
     public int getPosition(int talonNumber) {
         //double tickOffset = offset.get(talonNumber) / ticksPerInch;
-        return this.getRawPosition(0) /*+ (int)(tickOffset)*/;
+        return this.getRawPosition(talonNumber) /*+ (int)(tickOffset)*/;
     }
 
     public double getInchPosition(int talonNumber) {

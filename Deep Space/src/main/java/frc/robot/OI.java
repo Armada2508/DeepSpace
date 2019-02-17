@@ -52,17 +52,16 @@ public class OI {
 
   public OI() {
     shieldPiston.whenPressed(new Eject());
-    back.whenPressed(new RetractPivot());
-    start.whenPressed(new ExtendPivot());
 
     intakeFast.whileHeld(new Intake(true));
-    outputFast.whileHeld(new Output(true));
     intakeSlow.whileHeld(new Intake(false));
-    outputSlow.whileHeld(new Output(false));
+    midCargo.whileHeld(new Output(true));
+    lowCargo.whileHeld(new Output(false));
 
-
-    //linearActuatorForward.whenPressed(new Climb(0.5));
-
+    extendTop.whenPressed(new Climb(RobotMap.highPlatformHeight));
+    extendBottom.whenPressed(new Climb(RobotMap.lowPlatformHeight));
+    retractFront.whenPressed(new Climb(0.0, 0, 1));
+    retractBack.whenPressed(new Climb(0.0, 2));
   }
 
   // controller on port 0
@@ -87,12 +86,19 @@ public class OI {
   public double rY = stick.getRawAxis(5);
   int d_pad = stick.getPOV();
 
-  ComboButton intakeFast = new ComboButton(lb, x);
-  ComboButton outputFast = new ComboButton(rb, x);
-  ComboButton intakeSlow = new ComboButton(lb, y);
-  ComboButton outputSlow = new ComboButton(rb, y);
+  ExclusiveButton intakeFast = new ExclusiveButton(y, a, b, x, lb, rb);
+  ExclusiveButton intakeSlow = new ExclusiveButton(x, a, b, x, lb, rb);
+  ExclusiveButton midCargo = new ExclusiveButton(a, b, x, y, lb, rb);
+  ExclusiveButton lowCargo = new ExclusiveButton(b, a, x, y, lb, rb);
 
-  ExclusiveButton shieldPiston = new ExclusiveButton(a, b, x, y, lb, rb);
+  Button shieldPiston = start;
+  Button switchDriveDirection = back;
+
+  ComboButton extendTop = new ComboButton(lb, x);
+  ComboButton extendBottom = new ComboButton(lb, y);
+  ComboButton retractFront = new ComboButton(lb, b);
+  ComboButton retractBack = new ComboButton(lb, a);
+
 
 //  TriggerButton linearActuatorForward = new TriggerButton(stick, 2, 0.1);
 //  TriggerButton linearActuatorBackwards = new TriggerButton(stick, 3, 0.1);

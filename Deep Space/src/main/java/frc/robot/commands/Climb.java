@@ -23,6 +23,11 @@ public class Climb extends Command {
     position = pos;
   }
 
+  public Climb(double pos, int... talons) {
+    for (int i = 0; i < talons.length; i++) {
+      Robot.climbSystem.setPosition(pos, talons[i]);
+    }
+  }
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
