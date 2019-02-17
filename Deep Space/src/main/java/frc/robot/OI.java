@@ -9,8 +9,6 @@ package frc.robot;
 import frc.robot.commands.Climb;
 import frc.robot.commands.Intake.*;
 import frc.robot.commands.ShieldEject.*;
-import frc.robot.commands.Lift.*;
-import frc.robot.commands.LiftPivot.*;
 import frc.robot.commands.*;
 import edu.wpi.first.wpilibj.buttons.*;
 
@@ -55,13 +53,16 @@ public class OI {
 
     intakeFast.whileHeld(new Intake(true));
     intakeSlow.whileHeld(new Intake(false));
-    midCargo.whileHeld(new Output(true));
-    lowCargo.whileHeld(new Output(false));
+    outputFast.whileHeld(new Output(true));
+    outputSlow.whileHeld(new Output(false));
 
     extendTop.whenPressed(new Climb(RobotMap.highPlatformHeight));
     extendBottom.whenPressed(new Climb(RobotMap.lowPlatformHeight));
     retractFront.whenPressed(new Climb(0.0, 0, 1));
     retractBack.whenPressed(new Climb(0.0, 2));
+
+    extend.whenPressed(new Climb(1.0, 0, 1));
+    retract.whenPressed(new Climb(-3.0, 0, 1));
   }
 
   // controller on port 0
@@ -88,17 +89,19 @@ public class OI {
 
   ExclusiveButton intakeFast = new ExclusiveButton(y, a, b, x, lb, rb);
   ExclusiveButton intakeSlow = new ExclusiveButton(x, a, b, y, lb, rb);
-  ExclusiveButton midCargo = new ExclusiveButton(a, b, x, y, lb, rb);
-  ExclusiveButton lowCargo = new ExclusiveButton(b, a, x, y, lb, rb);
+  ExclusiveButton outputFast = new ExclusiveButton(a, b, x, y, lb, rb);
+  ExclusiveButton outputSlow = new ExclusiveButton(b, a, x, y, lb, rb);
 
   Button shieldPiston = start;
   Button switchDriveDirection = back;
 
-  ComboButton extendTop = new ComboButton(lb, x);
-  ComboButton extendBottom = new ComboButton(lb, y);
+  ComboButton extendTop = new ComboButton(lb, y);
+  ComboButton extendBottom = new ComboButton(lb, x);
   ComboButton retractFront = new ComboButton(lb, b);
   ComboButton retractBack = new ComboButton(lb, a);
-
+  
+  ComboButton retract = new ComboButton(rb, a);
+  ComboButton extend = new ComboButton(rb, b);
 
 //  TriggerButton linearActuatorForward = new TriggerButton(stick, 2, 0.1);
 //  TriggerButton linearActuatorBackwards = new TriggerButton(stick, 3, 0.1);

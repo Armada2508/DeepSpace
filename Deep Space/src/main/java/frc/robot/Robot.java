@@ -12,7 +12,6 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import frc.robot.subsystems.*;
 import frc.robot.commands.*;
-import frc.robot.commands.LiftPivot.ExtendPivot;
 import frc.robot.commands.ShieldEject.Eject;
 
 /**
@@ -26,9 +25,7 @@ import frc.robot.commands.ShieldEject.Eject;
 public class Robot extends TimedRobot {
   public static ShieldEject shieldEject = new ShieldEject();
   public static DriveSystem driveSystem = new DriveSystem();
-  public static Lift lift = new Lift();
   public static Intake intake = new Intake();
-  public static LiftPivot liftPivot = new LiftPivot();
   public static ClimbSystem climbSystem = new ClimbSystem();
   public static OI oi;
   Command autonomousCommand;
@@ -82,11 +79,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    Command extendPivot = new ExtendPivot();
-    extendPivot.start();
-    extendPivot.close();
-
-    
 
     /*
      * String autoSelected = SmartDashboard.getString("Auto Selector",
@@ -112,14 +104,12 @@ public class Robot extends TimedRobot {
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
-    Command extendPivot = new ExtendPivot();
-    extendPivot.start();
-    extendPivot.close();
+
   
-    Command homeActuators = new HomeLinearActuators();
+    /*Command homeActuators = new HomeLinearActuators();
     homeActuators.start();
     homeActuators.close();
-
+*/
     
   }
   /**
