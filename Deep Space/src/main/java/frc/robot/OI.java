@@ -60,9 +60,6 @@ public class OI {
     extendBottom.whenPressed(new Climb(RobotMap.lowPlatformHeight));
     retractFront.whenPressed(new Climb(0.0, 0, 1));
     retractBack.whenPressed(new Climb(0.0, 2));
-
-    extend.whenPressed(new Climb(1.0, 0, 1));
-    retract.whenPressed(new Climb(-3.0, 0, 1));
   }
 
   // controller on port 0
@@ -102,7 +99,6 @@ public class OI {
   
   ComboButton retract = new ComboButton(rb, a);
   ComboButton extend = new ComboButton(rb, b);
-
 //  TriggerButton linearActuatorForward = new TriggerButton(stick, 2, 0.1);
 //  TriggerButton linearActuatorBackwards = new TriggerButton(stick, 3, 0.1);
 }

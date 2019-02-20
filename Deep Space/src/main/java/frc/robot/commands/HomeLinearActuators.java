@@ -17,7 +17,9 @@ import java.util.ArrayList;
  */
 public class HomeLinearActuators extends Command {
 
+  private int cyclecount;
   private boolean isDone = false;
+  private int[][] previousValues;
 
   public HomeLinearActuators() {
     requires(Robot.climbSystem);
@@ -26,7 +28,10 @@ public class HomeLinearActuators extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    cyclecount = 0;
+    previousValues = new int[Robot.climbSystem.returnTalons().size()][RobotMap.linearActuatorIntegralAccumualtorLimit];
     boolean linearActuatorsOut = false;
+    //extends all actuators until they are off the switches
     while(!linearActuatorsOut) {
       linearActuatorsOut = true;
       for (int i = 0; i < Robot.climbSystem.returnTalons().size(); i++) { 
@@ -43,6 +48,7 @@ public class HomeLinearActuators extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    cyclecount++;
     boolean linearActuatorsIn = true;
     for (int i = 0; i < Robot.climbSystem.returnTalons().size(); i++) { 
       if(!Robot.climbSystem.isRevLimitSwitch(i)) {
@@ -54,6 +60,21 @@ public class HomeLinearActuators extends Command {
     }
     if(linearActuatorsIn) {
       isDone = true;
+    }
+    for (int talon = 0; talon < Robot.climbSystem.returnTalons().size(); talon++) {
+      for (int i = RobotMap.linearActuatorIntegralAccumualtorLimit - 1; i > 0 ; i--) {
+        previousValues[talon][i] = previousValues[talon][i - 1];
+      }
+      previousValues[talon][0] = Robot.climbSystem.getRawPosition(talon);      
+      if(cyclecount >= RobotMap.linearActuatorIntegralAccumualtorLimit) {
+        int change = Math.abs(previousValues[talon][0] - previousValues[talon][RobotMap.linearActuatorStopThreshold-1]);
+        if(change > RobotMap.linearActuatorStopThreshold) {
+          isDone = true;
+        } 
+      }
+      if(cyclecount > RobotMap.linearActuatorHomingTimeout){
+        isDone = true;
+      }
     }
   }
 
@@ -70,10 +91,10 @@ public class HomeLinearActuators extends Command {
     for (int i = 0; i < Robot.climbSystem.returnTalons().size(); i++) {
       offsets.add(i, Robot.climbSystem.getRawInchPosition(i) + RobotMap.liftMargin);
     }
-    System.out.println(offsets.size());
     Robot.climbSystem.setOffset(offsets);
     Robot.climbSystem.setPosition(0);
   }
+  
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run

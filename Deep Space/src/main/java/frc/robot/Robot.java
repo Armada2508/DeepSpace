@@ -10,9 +10,12 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.cameraserver.*;
 import frc.robot.subsystems.*;
 import frc.robot.commands.*;
 import frc.robot.commands.ShieldEject.Eject;
+
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -27,6 +30,7 @@ public class Robot extends TimedRobot {
   public static DriveSystem driveSystem = new DriveSystem();
   public static Intake intake = new Intake();
   public static ClimbSystem climbSystem = new ClimbSystem();
+  public static ClimbMotor climbMotor = new ClimbMotor();
   public static OI oi;
   Command autonomousCommand;
   private static Command eject;
@@ -36,6 +40,12 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+    UsbCamera topCamera = CameraServer.getInstance().startAutomaticCapture();
+    UsbCamera frontCamera = CameraServer.getInstance().startAutomaticCapture();
+    topCamera.setResolution(RobotMap.cameraSettings.topCameraWidth, RobotMap.cameraSettings.topCameraHeight);
+    frontCamera.setResolution(RobotMap.cameraSettings.frontCameraWidth, RobotMap.cameraSettings.frontCameraHeight);
+    topCamera.setFPS(RobotMap.cameraSettings.topCameraFPS);
+    frontCamera.setFPS(RobotMap.cameraSettings.frontCameraFPS);
     oi = new OI();
   }
 

@@ -26,8 +26,8 @@ public class Intake extends Subsystem {
     TalonSRX intakeFollower;
     //This method gets called when the drive system is instatiated in Robot.java
     public Intake() {
-      intakeMain = new TalonSRX(2);
-      intakeFollower = new TalonSRX(3);
+      intakeMain = new TalonSRX(8);
+      intakeFollower = new TalonSRX(9);
 
       TalonHelper.initTalonSet(intakeMain, intakeFollower, RobotMap.intakeConfig);
       IntakeConfig(intakeMain);

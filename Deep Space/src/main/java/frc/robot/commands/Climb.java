@@ -35,7 +35,6 @@ public class Climb extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    System.out.println(this.position);
     if(talons.length > 0) {
       for (int i = 0; i < talons.length; i++) {
         Robot.climbSystem.setInchPosition(this.position, talons[i]);
@@ -55,7 +54,6 @@ public class Climb extends Command {
   protected boolean isFinished() {
     isDone = true;
     if(talons.length == 0) {
-      System.out.println(52);
       for (int i = 0; i < Robot.climbSystem.returnTalons().size(); i++) {
         if(!(Math.abs(this.position - Robot.climbSystem.getInchPosition(i)) <= 0.05)) {
           isDone = false;
