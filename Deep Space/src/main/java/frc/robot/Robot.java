@@ -10,6 +10,11 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+
+import java.util.ArrayList;
+
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.*;
 import frc.robot.subsystems.*;
@@ -40,12 +45,12 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    UsbCamera topCamera = CameraServer.getInstance().startAutomaticCapture();
-    UsbCamera frontCamera = CameraServer.getInstance().startAutomaticCapture();
-    topCamera.setResolution(RobotMap.cameraSettings.topCameraWidth, RobotMap.cameraSettings.topCameraHeight);
-    frontCamera.setResolution(RobotMap.cameraSettings.frontCameraWidth, RobotMap.cameraSettings.frontCameraHeight);
-    topCamera.setFPS(RobotMap.cameraSettings.topCameraFPS);
-    frontCamera.setFPS(RobotMap.cameraSettings.frontCameraFPS);
+    // UsbCamera topCamera = CameraServer.getInstance().startAutomaticCapture();
+    // UsbCamera frontCamera = CameraServer.getInstance().startAutomaticCapture();
+    // topCamera.setResolution(RobotMap.cameraSettings.topCameraWidth, RobotMap.cameraSettings.topCameraHeight);
+    // frontCamera.setResolution(RobotMap.cameraSettings.frontCameraWidth, RobotMap.cameraSettings.frontCameraHeight);
+    // topCamera.setFPS(RobotMap.cameraSettings.topCameraFPS);
+    // frontCamera.setFPS(RobotMap.cameraSettings.frontCameraFPS);
     oi = new OI();
   }
 
@@ -115,11 +120,12 @@ public class Robot extends TimedRobot {
     // continue until interrupted by another command, remove
     // this line or comment it out.
 
+    
+
   
-    /*Command homeActuators = new HomeLinearActuators();
+    Command homeActuators = new HomeActuatorGroup();
     homeActuators.start();
-    homeActuators.close();
-*/
+
     
   }
   /**
@@ -128,6 +134,11 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
+    ArrayList<TalonSRX> things = climbSystem.getTalons();
+    // System.out.println("Current " + things.get(0).getOutputCurrent() + " " + things.get(1).getOutputCurrent() + " " + things.get(2).getOutputCurrent());
+    // System.out.println("RawPos " + climbSystem.getRawPosition(0) + " " + climbSystem.getRawPosition(1) + " " + climbSystem.getRawPosition(2));
+    // System.out.println("LimitSwitch " + climbSystem.isRevLimitSwitch(0) + " " + climbSystem.isRevLimitSwitch(1) + " " + climbSystem.isRevLimitSwitch(2));
+    // System.out.println("LimitSwitch " + climbSystem.getInchPosition(0) + " " + climbSystem.getInchPosition(1) + " " + climbSystem.getInchPosition(2));
   }
 
   /**

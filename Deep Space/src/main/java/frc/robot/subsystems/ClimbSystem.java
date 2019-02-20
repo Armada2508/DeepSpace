@@ -43,6 +43,7 @@ public class ClimbSystem extends Subsystem {
         for (TalonSRX climbTalon : climbTalons) {
             initClimbTalon(climbTalon);
         }
+        // climbTalons.get(1).setSensorPhase(true);
     }
 
     @Override
@@ -105,7 +106,7 @@ public class ClimbSystem extends Subsystem {
     }
     
     public boolean isRevLimitSwitch(int talon) {
-        return climbTalons.get(talon).getSensorCollection().isRevLimitSwitchClosed();
+        return !climbTalons.get(talon).getSensorCollection().isRevLimitSwitchClosed();
     }
     
     public void setPower(double power, int talon) {
@@ -119,7 +120,7 @@ public class ClimbSystem extends Subsystem {
         }
     }
 
-    public ArrayList<TalonSRX> returnTalons() {
+    public ArrayList<TalonSRX> getTalons() {
         return climbTalons;
     }
 }

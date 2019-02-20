@@ -18,7 +18,7 @@ public class RobotMap {
   public static final double DeadbandThreshold = 0.05;
   //Settings for the DriveSystem TalonSRXs
   public static final TalonConfig driveConfig = new TalonConfig(1.0 * 1023 / 4096, 0.01 * 1023 / 4096, 0.01 * 1023 / 4096, 0, 0.1, 4000, 12, 40);
-  public static final TalonConfig climbConfig = new TalonConfig(1, .2 , 0, 0, 0.1, 4000, 12, 30);
+  public static final TalonConfig climbConfig = new TalonConfig(1, .2 , 0, 0, 0.1, 4000, 12, 10);
   public static final TalonConfig intakeConfig = new TalonConfig(0, 0, 0, 0, 1, 20000, 12, 40);
   public static final double maxAcceleration = 4;
   //Software Height Limit for Lift
@@ -31,16 +31,16 @@ public class RobotMap {
   public static final double slowCargoOutputSpeed = 0.5;
 
   //Power used for homing
-  public static final double homingPower = 0.1;
+  public static final double homingPower = 0.30;
   //Lift Margin(Inches)
   public static final double liftMargin = 0.0;
 
-  public static final double shieldEjectWait = 0.15;
+  public static final double shieldEjectWait = 0.20;
 
   public static final double lowPlatformHeight = 6.0;
   public static final double highPlatformHeight = 19.0;
 
-  public static final int linearActuatorIntegralAccumualtorLimit = 5;
+  public static final int linearActuatorIntegralAccumualtorLimit = 20;
   public static final int linearActuatorHomingTimeout = 30*50; // 30 / 0.02
   public static final int linearActuatorStopThreshold = 20;
 

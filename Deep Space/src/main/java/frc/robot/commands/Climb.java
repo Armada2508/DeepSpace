@@ -54,7 +54,7 @@ public class Climb extends Command {
   protected boolean isFinished() {
     isDone = true;
     if(talons.length == 0) {
-      for (int i = 0; i < Robot.climbSystem.returnTalons().size(); i++) {
+      for (int i = 0; i < Robot.climbSystem.getTalons().size(); i++) {
         if(!(Math.abs(this.position - Robot.climbSystem.getInchPosition(i)) <= 0.05)) {
           isDone = false;
         }
