@@ -35,7 +35,6 @@ public class Robot extends TimedRobot {
   public static DriveSystem driveSystem = new DriveSystem();
   public static Intake intake = new Intake();
   public static ClimbSystem climbSystem = new ClimbSystem();
-  public static ClimbMotor climbMotor = new ClimbMotor();
   public static OI oi;
   Command autonomousCommand;
   private static Command eject;
@@ -45,11 +44,11 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    // UsbCamera topCamera = CameraServer.getInstance().startAutomaticCapture();
+     UsbCamera topCamera = CameraServer.getInstance().startAutomaticCapture(0);
     // UsbCamera frontCamera = CameraServer.getInstance().startAutomaticCapture();
-    // topCamera.setResolution(RobotMap.cameraSettings.topCameraWidth, RobotMap.cameraSettings.topCameraHeight);
+     topCamera.setResolution(RobotMap.cameraSettings.topCameraWidth, RobotMap.cameraSettings.topCameraHeight);
     // frontCamera.setResolution(RobotMap.cameraSettings.frontCameraWidth, RobotMap.cameraSettings.frontCameraHeight);
-    // topCamera.setFPS(RobotMap.cameraSettings.topCameraFPS);
+     topCamera.setFPS(RobotMap.cameraSettings.topCameraFPS);
     // frontCamera.setFPS(RobotMap.cameraSettings.frontCameraFPS);
     oi = new OI();
   }
@@ -94,7 +93,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-
+    Command DriveCMD = new Drive();
+    DriveCMD.start();
+    
     /*
      * String autoSelected = SmartDashboard.getString("Auto Selector",
      * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
@@ -134,7 +135,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
-    ArrayList<TalonSRX> things = climbSystem.getTalons();
+    // ArrayList<TalonSRX> things = climbSystem.getTalons();
     // System.out.println("Current " + things.get(0).getOutputCurrent() + " " + things.get(1).getOutputCurrent() + " " + things.get(2).getOutputCurrent());
     // System.out.println("RawPos " + climbSystem.getRawPosition(0) + " " + climbSystem.getRawPosition(1) + " " + climbSystem.getRawPosition(2));
     // System.out.println("LimitSwitch " + climbSystem.isRevLimitSwitch(0) + " " + climbSystem.isRevLimitSwitch(1) + " " + climbSystem.isRevLimitSwitch(2));

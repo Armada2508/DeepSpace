@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class HomeLinearActuators extends Command {
 
   private int cyclecount;
-  private boolean isDone = false;
+  private boolean[] isDone;
   private int[][] previousValues;
 
   public HomeLinearActuators() {
@@ -30,7 +30,10 @@ public class HomeLinearActuators extends Command {
   protected void initialize() {
     cyclecount = 0;
     previousValues = new int[Robot.climbSystem.getTalons().size()][RobotMap.linearActuatorIntegralAccumualtorLimit];
-    
+    isDone = new boolean[Robot.climbSystem.getTalons().size()];
+    for (int i = 0; i < Robot.climbSystem.getTalons().size(); i++) { 
+      isDone[i] = false;
+    }
     System.out.println("Started HomeLinearActuators");
   }
 
@@ -38,18 +41,16 @@ public class HomeLinearActuators extends Command {
   @Override
   protected void execute() {
     cyclecount++;
-    boolean linearActuatorsIn = true;
     for (int i = 0; i < Robot.climbSystem.getTalons().size(); i++) { 
       if(!Robot.climbSystem.isRevLimitSwitch(i)) {
-        linearActuatorsIn = false;
         Robot.climbSystem.setPower(-RobotMap.homingPower, i);
       } else {
+        isDone[i] = true;
         Robot.climbSystem.setPower(0.0, i);
       }
     }
-    if(linearActuatorsIn) {     
+    if(isFinished()) {     
       System.out.println("linearActuatorsIn");
-      isDone = true;
     }
     for (int talon = 0; talon < Robot.climbSystem.getTalons().size(); talon++) {
       for (int i = RobotMap.linearActuatorIntegralAccumualtorLimit - 1; i > 0 ; i--) {
@@ -59,13 +60,13 @@ public class HomeLinearActuators extends Command {
       if(cyclecount >= RobotMap.linearActuatorIntegralAccumualtorLimit) {
         int change = Math.abs(previousValues[talon][0] - previousValues[talon][RobotMap.linearActuatorIntegralAccumualtorLimit-1]);
         if(change < RobotMap.linearActuatorStopThreshold) {          
-          System.out.println("linearActuatorStopThreshold");
-          isDone = true;
+          System.out.println("linearActuatorStopThreshold change was " + change);
+          isDone[talon] = true;
         } 
       }
       if(cyclecount > RobotMap.linearActuatorHomingTimeout){
         System.out.println("linearActuatorHomingTimeout");
-        isDone = true;
+        isDone[talon] = true;
       }
     }
   }
@@ -73,7 +74,11 @@ public class HomeLinearActuators extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return isDone;
+    for(int talon = 0; talon < Robot.climbSystem.getTalons().size(); talon++) {
+      if(isDone[talon] == false)
+        return false;
+    }
+    return true;
   }
 
   // Called once after isFinished returns true
