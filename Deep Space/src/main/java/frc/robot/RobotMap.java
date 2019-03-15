@@ -36,7 +36,7 @@ public class RobotMap {
   public static final double liftMargin = 0.0;
 
   public static final double drivePowerWhileLiftedFront = 0.125;
-  public static final double drivePowerWhileLiftedBack = 0.03;
+  public static final double drivePowerWhileLiftedBack = 0.125;
 
   public static final double shieldEjectWait = 0.20;
 
