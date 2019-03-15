@@ -22,6 +22,8 @@ import java.util.*;
  * An example subsystem.  You can replace me with your own Subsystem.
  */
 public class ClimbSystem extends Subsystem {
+    public boolean extended = false;
+
     double inchesPerTick = 0.000388; 
 
     ArrayList<TalonSRX> climbTalons;
@@ -122,5 +124,25 @@ public class ClimbSystem extends Subsystem {
 
     public ArrayList<TalonSRX> getTalons() {
         return climbTalons;
+    }
+
+
+    private boolean[] getExtended() {
+        boolean[] extended = new boolean[climbTalons.size()];
+        for (int i = 0; i < climbTalons.size(); i++) {
+                extended[i] = Math.abs(getInchPosition(i)) > 0.5;
+        }
+        return extended;
+    }
+
+    public boolean getExtendedFront() {
+        boolean[] extended = getExtended(); 
+        return extended[0] || extended[1];
+    }
+
+    
+    public boolean getExtendedBack() {
+        boolean[] extended = getExtended();
+        return extended[2];
     }
 }

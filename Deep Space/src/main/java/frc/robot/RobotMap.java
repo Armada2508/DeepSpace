@@ -31,14 +31,17 @@ public class RobotMap {
   public static final double slowCargoOutputSpeed = 0.5;
 
   //Power used for homing
-  public static final double homingPower = 0.30;
+  public static final double homingPower = 1.00;
   //Lift Margin(Inches)
   public static final double liftMargin = 0.0;
 
+  public static final double drivePowerWhileLiftedFront = 0.125;
+  public static final double drivePowerWhileLiftedBack = 0.03;
+
   public static final double shieldEjectWait = 0.20;
 
-  public static final double lowPlatformHeight = 9.0;
-  public static final double highPlatformHeight = 19.0;
+  public static final double lowPlatformHeight = 8.0;
+  public static final double highPlatformHeight = 21.0;
 
   public static final int linearActuatorIntegralAccumualtorLimit = 20;
   public static final int linearActuatorHomingTimeout = 30*50; // 30 / 0.02

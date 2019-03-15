@@ -42,8 +42,17 @@ public class Drive extends Command {
 		RPower = Math.max(-1, Math.min(1, RPower));
 		LPower = Math.max(-1, Math.min(1, LPower));
 
+        Pair Powers;
 
-		Pair Powers = limitAcceleration(20, new Pair(LPower,RPower));
+        if(Robot.climbSystem.getExtendedFront()) {
+            Powers = limitAcceleration(20, new Pair(LPower * RobotMap.drivePowerWhileLiftedFront,RPower * RobotMap.drivePowerWhileLiftedFront));
+        } else if(Robot.climbSystem.getExtendedBack()) {
+            Powers = limitAcceleration(20, new Pair(LPower * RobotMap.drivePowerWhileLiftedBack,RPower * RobotMap.drivePowerWhileLiftedBack));
+        } else {
+            Powers = limitAcceleration(20, new Pair(LPower, RPower));
+        }
+		
+
 
 		Robot.driveSystem.drive(-Powers.left,-Powers.right);
     }
