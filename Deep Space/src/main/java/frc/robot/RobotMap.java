@@ -20,7 +20,7 @@ public class RobotMap {
   public static final TalonConfig driveConfig = new TalonConfig(1.0 * 1023 / 4096, 0.01 * 1023 / 4096, 0.01 * 1023 / 4096, 0, 0.1, 4000, 12, 40);
   public static final TalonConfig climbConfig = new TalonConfig(1, .2 , 0, 0, 0.1, 4000, 12, 10);
   public static final TalonConfig intakeConfig = new TalonConfig(0, 0, 0, 0, 1, 20000, 12, 40);
-  public static final double maxAcceleration = 2;
+  public static final double maxAcceleration = 2.0;
   //Software Height Limit for Lift
   public static final int LiftLimit = 2000;
 
@@ -36,7 +36,9 @@ public class RobotMap {
   public static final double liftMargin = 0.0;
 
   public static final double drivePowerWhileLiftedFront = 0.125;
-  public static final double drivePowerWhileLiftedBack = 0.125;
+  public static final double drivePowerWhileLiftedBack = 0.0125;
+  public static final double defaultPower = 0.5;
+  public static final double sprintPower = 1.0;
 
   public static final double shieldEjectWait = 0.20;
 
@@ -50,7 +52,7 @@ public class RobotMap {
   class cameraSettings {
     public static final int topCameraWidth = 320;
     public static final int topCameraHeight = 240;
-    public static final int topCameraFPS = 22;
+    public static final int topCameraFPS = 10;
     public static final int frontCameraWidth = 320;
     public static final int frontCameraHeight = 240;
     public static final int frontCameraFPS = 30;

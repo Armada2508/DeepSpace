@@ -20,6 +20,11 @@ public class Drive extends Command {
     private Pair limitAcceleration(long millisPerTick, Pair newPowerSetting)
     {
         double maxVelocityChange = RobotMap.maxAcceleration*millisPerTick/1000;
+        // if(Robot.oi.rb.get())
+        // {
+        //     maxVelocityChange /= 2;
+        // }
+        
 		double leftChange = newPowerSetting.left - lastPowerSetting.left;
         double rightChange = newPowerSetting.right - lastPowerSetting.right;
        
@@ -42,19 +47,25 @@ public class Drive extends Command {
 		RPower = Math.max(-1, Math.min(1, RPower));
 		LPower = Math.max(-1, Math.min(1, LPower));
 
-        Pair Powers;
+        double powerMultipler;
 
-        if(Robot.climbSystem.getExtendedFront()) {
-            Powers = limitAcceleration(20, new Pair(LPower * RobotMap.drivePowerWhileLiftedFront,RPower * RobotMap.drivePowerWhileLiftedFront));
-        } else if(Robot.climbSystem.getExtendedBack()) {
-            Powers = limitAcceleration(20, new Pair(LPower * RobotMap.drivePowerWhileLiftedBack,RPower * RobotMap.drivePowerWhileLiftedBack));
+        // if(Robot.climbSystem.getExtendedFront()) {
+        //     powerMultipler = RobotMap.drivePowerWhileLiftedFront;
+        // } else if(Robot.climbSystem.getExtendedBack()) {
+        //     powerMultipler = RobotMap.drivePowerWhileLiftedBack;
+        // } else 
+        if (Robot.oi.rb.get()) {
+            powerMultipler = RobotMap.sprintPower;
+            // System.out.println("Sprinting");
         } else {
-            Powers = limitAcceleration(20, new Pair(LPower, RPower));
+            powerMultipler = RobotMap.defaultPower;
+            // System.out.println("NotSprinting");
         }
-		
+        
+        Pair powers = limitAcceleration(20, new Pair(LPower * powerMultipler, RPower * powerMultipler));
 
 
-		Robot.driveSystem.drive(-Powers.left,-Powers.right);
+		Robot.driveSystem.drive(-powers.left,-powers.right);
     }
     //Returns true when the command is finished
     protected boolean isFinished() {

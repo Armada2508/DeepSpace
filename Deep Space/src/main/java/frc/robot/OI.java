@@ -84,10 +84,10 @@ public class OI {
   public double rY = stick.getRawAxis(5);
   int d_pad = stick.getPOV();
 
-  ExclusiveButton intakeFast = new ExclusiveButton(y, a, b, x, lb, rb);
-  ExclusiveButton intakeSlow = new ExclusiveButton(x, a, b, y, lb, rb);
-  ExclusiveButton outputFast = new ExclusiveButton(a, b, x, y, lb, rb);
-  ExclusiveButton outputSlow = new ExclusiveButton(b, a, x, y, lb, rb);
+  ExclusiveButton intakeFast = new ExclusiveButton(y, a, b, x, lb);
+  ExclusiveButton intakeSlow = new ExclusiveButton(x, a, b, y, lb);
+  ExclusiveButton outputFast = new ExclusiveButton(a, b, x, y, lb);
+  ExclusiveButton outputSlow = new ExclusiveButton(b, a, x, y, lb);
 
   Button shieldPiston = start;
   Button switchDriveDirection = back;
@@ -97,8 +97,8 @@ public class OI {
   ComboButton retractFront = new ComboButton(lb, b);
   ComboButton retractBack = new ComboButton(lb, a);
   
-  ComboButton retract = new ComboButton(rb, a);
-  ComboButton extend = new ComboButton(rb, b);
+  // ComboButton retract = new ComboButton(rb, a);
+  // ComboButton extend = new ComboButton(rb, b);
 //  TriggerButton linearActuatorForward = new TriggerButton(stick, 2, 0.1);
 //  TriggerButton linearActuatorBackwards = new TriggerButton(stick, 3, 0.1);
 }

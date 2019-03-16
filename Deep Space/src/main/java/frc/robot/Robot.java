@@ -15,6 +15,7 @@ import java.util.ArrayList;
 
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
+import edu.wpi.cscore.MjpegServer;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.*;
 import frc.robot.subsystems.*;
@@ -45,6 +46,8 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
      UsbCamera topCamera = CameraServer.getInstance().startAutomaticCapture(0);
+     MjpegServer mjpegServer = CameraServer.getInstance().startAutomaticCapture(topCamera);
+     mjpegServer.setCompression(30);
     // UsbCamera frontCamera = CameraServer.getInstance().startAutomaticCapture();
      topCamera.setResolution(RobotMap.cameraSettings.topCameraWidth, RobotMap.cameraSettings.topCameraHeight);
     // frontCamera.setResolution(RobotMap.cameraSettings.frontCameraWidth, RobotMap.cameraSettings.frontCameraHeight);
