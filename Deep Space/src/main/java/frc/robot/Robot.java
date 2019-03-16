@@ -11,16 +11,13 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 
-import java.util.ArrayList;
 
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.cscore.MjpegServer;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.*;
 import frc.robot.subsystems.*;
 import frc.robot.commands.*;
-import frc.robot.commands.ShieldEject.Eject;
 
 
 /**
@@ -32,13 +29,11 @@ import frc.robot.commands.ShieldEject.Eject;
  */
 
 public class Robot extends TimedRobot {
-  public static ShieldEject shieldEject = new ShieldEject();
   public static DriveSystem driveSystem = new DriveSystem();
   public static Intake intake = new Intake();
   public static ClimbSystem climbSystem = new ClimbSystem();
   public static OI oi;
   Command autonomousCommand;
-  private static Command eject;
   /**
    * This function is run when the robot is first started up and should be
    * used for any initialization code.

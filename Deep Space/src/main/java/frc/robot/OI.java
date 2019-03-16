@@ -8,8 +8,6 @@
 package frc.robot;
 import frc.robot.commands.Climb;
 import frc.robot.commands.Intake.*;
-import frc.robot.commands.ShieldEject.*;
-import frc.robot.commands.*;
 import edu.wpi.first.wpilibj.buttons.*;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -49,8 +47,6 @@ public class OI {
 
 
   public OI() {
-    shieldPiston.whenPressed(new Eject());
-
     intakeFast.whileHeld(new Intake(true));
     intakeSlow.whileHeld(new Intake(false));
     outputFast.whileHeld(new Output(true));
