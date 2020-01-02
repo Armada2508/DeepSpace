@@ -58,10 +58,19 @@ public class OI {
     retractBack.whenPressed(new Climb(0.0, 2));
   }
 
-  // controller on port 0
+  // Joystick on port 0(Joystick)
   public Joystick stick = new Joystick(0);
 
+  // Joystick on port 1(Button Board)
+  public Joystick buttonBoard = new Joystick(1);
+
   //Maps buttons on controller
+  public Button climbEnable = new JoystickButton(buttonBoard, 1);
+  public Button lowClimb = new JoystickButton(buttonBoard, 2);
+  public Button highClimb = new JoystickButton(buttonBoard, 3);
+  public Button retract1 = new JoystickButton(buttonBoard, 4);
+  public Button retract2 = new JoystickButton(buttonBoard, 5);
+
   public Button a = new JoystickButton(stick, 1);
   public Button b = new JoystickButton(stick, 2);
   public Button x = new JoystickButton(stick, 3);
@@ -88,10 +97,11 @@ public class OI {
   Button shieldPiston = start;
   Button switchDriveDirection = back;
 
-  ComboButton extendTop = new ComboButton(lb, y);
-  ComboButton extendBottom = new ComboButton(lb, x);
-  ComboButton retractFront = new ComboButton(lb, b);
-  ComboButton retractBack = new ComboButton(lb, a);
+
+  ComboButton extendTop = new ComboButton(climbEnable, highClimb);
+  ComboButton extendBottom = new ComboButton(climbEnable, lowClimb);
+  ComboButton retractFront = new ComboButton(climbEnable, retract1);
+  ComboButton retractBack = new ComboButton(climbEnable, retract2);
   
   // ComboButton retract = new ComboButton(rb, a);
   // ComboButton extend = new ComboButton(rb, b);
